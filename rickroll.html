@@ -5,13 +5,18 @@
 <link rel="icon" type="image/png" href="go.png"/>
 </head>    
 <body>
- <iframe width="1500" height="1000" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1" 
-        allowfullscreen="allowfullscreen"
-        mozallowfullscreen="mozallowfullscreen" 
-        msallowfullscreen="msallowfullscreen" 
-        oallowfullscreen="oallowfullscreen" 
-        webkitallowfullscreen="webkitallowfullscreen">
-</iframe>
+    <script>
+        setInterval(function() {
+            var div = document.querySelector("#counter");
+            var count = div.textContent * 1 - 1;
+            div.textContent = count;
+            if (count <= 0) {
+                window.location.replace("https://bit.ly/37ZHhRJ");
+            }
+        }, 1000)
+    </script>
+     <p>you will be redirected in</p>
+ <div id="counter">5</div>
 </body>
 </html>
 
