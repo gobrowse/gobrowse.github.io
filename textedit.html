@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Text Editor</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      textarea {
+        width: 100%;
+        height: 300px;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      select {
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green */
+        color: white;
+      }
+        body {
+            transition: all 0.5s ease;
+        }
+        .light-mode {
+            --text-color: #000;
+            --bg-color: #fff;
+        }
+        .dark-mode {
+            --text-color: #fff;
+            --bg-color: #000;
+        }
+        .high-contrast-mode {
+            --text-color: #000;
+            --bg-color: yellow;
+        }
+    </style>
+  </head>
+  <body class="light-mode" style="color: var(--text-color); background-color: var(--bg-color);">
+    <h2>Text Editor</h2>
+    <textarea id="text"></textarea><br />
+    <input type="text" id="filename" placeholder="Filename" /><br />
+    <select id="filetype">
+       <!-- Add more programming language options here -->
+       <option value=".html">HTML</option> 
+       <option value=".css">CSS</option> 
+       <option value=".js">JavaScript</option> 
+       <option value=".go">Go</option> 
+       <option value=".txt">Text</option>
+       <option value=".py">Python</option>  
+       ...
+     </select><br />
+     <button onclick="saveTextAsFile()">Save</button>
+    <button onclick="changeMode('light')">Light Mode</button>
+    <button onclick="changeMode('dark')">Dark Mode</button>
+
+     <script type='text/javascript'>
+        function changeMode(mode) {
+            document.body.classList.remove('light-mode', 'dark-mode', 'high-contrast-mode');
+            if (mode === 'light') {
+                document.body.classList.add('light-mode');
+            } else if (mode === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else if (mode === 'high-contrast') {
+                document.body.classList.add('high-contrast-mode');
+            }
+        }
+       function saveTextAsFile() {
+         var textToWrite = document.getElementById('text').value;
+         var fileNameToSaveAs = document.getElementById('filename').value + document.getElementById('filetype').value;
+
+         var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+         var downloadLink = document.createElement("a");
+         downloadLink.download = fileNameToSaveAs;
+         downloadLink.innerHTML = "Download File";
+         if (window.webkitURL != null) {
+           downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+         } else {
+           downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+           downloadLink.onclick = destroyClickedElement;
+           downloadLink.style.display = "none";
+           document.body.appendChild(downloadLink);
+         }
+
+         downloadLink.click();
+       }
+
+       function destroyClickedElement(event) {
+         document.body.removeChild(event.target);
+       }
+     </script> 
+   </body> 
+ </html>
